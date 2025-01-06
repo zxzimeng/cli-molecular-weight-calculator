@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Function to calculate molecular weight
+calculate_weight() {
+    python3 -c "
+import re
+
+elements = {
+    'H': 1.00794, 'He': 4.002602, 'Li': 6.941, 'Be': 9.012182, 'B': 10.811, 'C': 12.0107,
+    'N': 14.0067, 'O': 15.9994, 'F': 18.9984032, 'Ne': 20.1797, 'Na': 22.98976928,
+    'Mg': 24.305, 'Al': 26.9815386, 'Si': 28.0855, 'P': 30.973762, 'S': 32.065,
+    'Cl': 35.453, 'Ar': 39.948, 'K': 39.0983, 'Ca': 40.078, 'Fe': 55.845, 'Cu': 63.546,
+    'Zn': 65.38, 'Ag': 107.8682, 'I': 126.90447, 'Au': 196.966569, 'Hg': 200.59
+}
+
+def parse_formula(formula):
+    pattern = r'([A-Z][a-z]?)(\d*)|(\()|(\))(\d*)'
+    tokens = re.findall(pattern, formula)
+    stack = [{}]
+    for name, count, open_paren, close_paren, multiple in tokens:
+        if open_paren:
+            stack.append({})
+        elif close_paren:
+            top = stack.pop()
+            for name, v in top.items():
+                stack[-1][name] = stack[-1].get(name, 0) + v * int(multiple or '1')
+        else:
+            stack[-1][name] = stack[-1].get(name, 0) + int(count or '1')
+    return stack[0]
+
+def calculate_mass(formula):
+    parsed = parse_formula(formula)
+    return sum(elements[name] * count for name, count in parsed.items())
+
+formula = '$1'
+print(f'{calculate_mass(formula):.4f}')
+"
+}
+
+if [ $# -eq 0 ]; then
+    echo "Please provide a chemical formula as an argument."
+    echo "Usage: $0 <formula>"
+    echo "Example: $0 '(H2O)2'"
+    exit 1
+fi
+
+calculate_weight "$1"
