@@ -13,7 +13,7 @@ fn main() {
 
     let formula = &args[1];
     let result = calculate_mass(formula);
-    println!("{:.4}", result);
+    println!("{:.6}", result);  // Changed from .4 to .6 for more precision
 }
 
 fn calculate_mass(formula: &str) -> f64 {

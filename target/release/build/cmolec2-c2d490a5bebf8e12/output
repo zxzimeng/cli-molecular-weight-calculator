@@ -1,0 +1,2 @@
+cargo:rerun-if-changed=src/main.rs
+cargo:warning=Copying from "/Users/zimengx/code/pathscripts/cmolec_g/target/release/cmolec2" to "/Users/zimengx/code/pathscripts/cmolec_g/cmolec2"
