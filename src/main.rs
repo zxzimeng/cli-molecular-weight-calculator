@@ -37,7 +37,6 @@ fn parse_formula(formula: &str) -> HashMap<String, u32> {
     let mut current_element = String::new();
     let mut current_number = String::new();
     let mut chars = formula.chars().peekable();
-    let mut in_underscore = false;
 
     while let Some(c) = chars.next() {
         match c {
@@ -57,30 +56,9 @@ fn parse_formula(formula: &str) -> HashMap<String, u32> {
                 }
                 process_group(&mut stack, &mut chars);
             },
-            '_' => {
-                if !in_underscore {
-                    if !current_element.is_empty() {
-                        process_element(&mut stack, &current_element, &current_number);
-                        current_element = String::new();
-                        current_number = String::new();
-                    }
-                    stack.push(HashMap::new());
-                    in_underscore = true;
-                } else {
-                    if !current_element.is_empty() {
-                        process_element(&mut stack, &current_element, &current_number);
-                        current_element = String::new();
-                        current_number = String::new();
-                    }
-                    process_group(&mut stack, &mut chars);
-                    in_underscore = false;
-                }
-            },
             'A'..='Z' => {
                 if !current_element.is_empty() {
-                    let count = current_number.parse::<u32>().unwrap_or(1);
-                    let current = stack.last_mut().unwrap();
-                    *current.entry(current_element).or_insert(0) += count;
+                    process_element(&mut stack, &current_element, &current_number);
                     current_element = String::new();
                     current_number = String::new();
                 }
@@ -96,10 +74,18 @@ fn parse_formula(formula: &str) -> HashMap<String, u32> {
         }
     }
 
+    // Process any remaining element
     if !current_element.is_empty() {
-        let count = current_number.parse::<u32>().unwrap_or(1);
+        process_element(&mut stack, &current_element, &current_number);
+    }
+
+    // Combine any remaining groups
+    while stack.len() > 1 {
+        let top = stack.pop().unwrap();
         let current = stack.last_mut().unwrap();
-        *current.entry(current_element).or_insert(0) += count;
+        for (element, count) in top {
+            *current.entry(element).or_insert(0) += count;
+        }
     }
 
     stack.pop().unwrap()

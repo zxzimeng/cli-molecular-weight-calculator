@@ -1,1 +1,0 @@
-{"rustc":10114291814086294921,"features":"","declared_features":"","target":0,"profile":0,"path":0,"deps":[[4053762663955591147,"build_script_build",false,3091465408729806840]],"local":[{"RerunIfChanged":{"output":"release/build/cmolec2-c2d490a5bebf8e12/output","paths":["src/main.rs"]}}],"rustflags":[],"config":0,"compile_kind":0}

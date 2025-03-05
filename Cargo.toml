@@ -1,5 +1,5 @@
 [package]
-name = "cmolec2"
+name = "simple_molecular_mass_calculator"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,5 +7,5 @@ edition = "2021"
 periodic-table-rs = "0.1.2"
 
 [[bin]]
-name = "cmolec2"
+name = "mm"
 path = "src/main.rs"

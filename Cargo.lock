@@ -3,13 +3,6 @@
 version = 4
 
 [[package]]
-name = "cmolec2"
-version = "0.1.0"
-dependencies = [
- "periodic-table-rs",
-]
-
-[[package]]
 name = "heck"
 version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -47,6 +40,13 @@ name = "rustversion"
 version = "1.0.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f7c45b9784283f1b2e7fb61b42047c2fd678ef0960d4f6f1eba131594cc369d4"
+
+[[package]]
+name = "simple_molecular_mass_calculator"
+version = "0.1.0"
+dependencies = [
+ "periodic-table-rs",
+]
 
 [[package]]
 name = "strum_macros"
