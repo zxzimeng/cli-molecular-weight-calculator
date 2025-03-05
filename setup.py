@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="simple-molecular-weight-calculator",
-    version="0.1.0",
+    version="0.1.1",
     data_files=[('bin', ['mm'])],  # Use the compiled Rust binary
     description="A simple molecular weight calculator implemented in Rust",
     long_description=open('README.md').read(),
