@@ -21,6 +21,12 @@ pip install .
 pip install simple-molecular-weight-calculator
 ```
 
+### Homebrew
+```bash
+brew tap zxzimeng/mm
+brew install mm
+```
+
 ## Usage
 H2O:
 ```bash
