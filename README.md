@@ -1,6 +1,6 @@
 # Simple Molecular Weight Calculator
 
-Written in Rust
+Simple & Fast Molecular Weight Calculator Written in Rust
 
 ## Installation
 
